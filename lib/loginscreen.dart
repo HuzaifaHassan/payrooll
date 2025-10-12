@@ -52,12 +52,61 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Container(alignment: Alignment.centerLeft,
-              child: Text(
-                  "Employee ID",
-                style: TextStyle(
-                fontSize: screenWidth_ /26,
-                fontWeight: FontWeight.bold,
-              )
+              margin: EdgeInsets.symmetric(
+                  horizontal:
+                  screenWidth_ / 12,
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                      bottom: 6,
+                    ),
+                    child: Text(
+                        "Employee ID",
+                      style: TextStyle(
+                      fontSize: screenWidth_ /26,
+                      fontWeight: FontWeight.bold,
+                    )
+                    ),
+                  ),
+                  Container(
+                    width: screenWidth_,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:  BorderRadius.all(Radius.circular(12)),
+                      boxShadow:[
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 10,
+                          offset: const Offset(2, 2),
+                        ),
+                      ],
+                    ),
+                    child:Row(
+                      children:[
+                        Container(
+
+                            width: screenWidth_ /15,
+                             child: Icon(
+                            Icons.person,
+
+                             ),
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: screenHeight_ / 40,
+                                //horizontal: screenWidth_ / 20,
+                              )
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
           ),
         ],
