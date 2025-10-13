@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 customField("Enter Password", passwordController_),
                 Container(
                   child: Center(
-                    child: Text("LOGIN"),
+                    child: Text("LOGIN")
                   ),
                 ),
               ],
