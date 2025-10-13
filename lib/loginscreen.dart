@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -8,6 +10,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   TextEditingController idController_ = TextEditingController();
   TextEditingController passwordController_ = TextEditingController();
   double screenHeight_ = 0;
@@ -16,6 +19,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isKeyboardVisible = KeyboardVisibilityProvider.isKeyboardVisible(context);
+
+
     screenHeight_ = MediaQuery
         .of(context)
         .size
@@ -27,9 +33,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          Container(
+          isKeyboardVisible ? const SizedBox()  : Container(
             height: screenHeight_ / 2.5,
             width: screenWidth_,
             decoration: BoxDecoration(
@@ -53,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
               bottom: screenHeight_ / 20,
             ),
             child: Text(
-                'Login',
+                 'Login',
                 style: TextStyle(
                   fontSize: screenWidth_ / 18,
                   fontWeight: FontWeight.bold,
@@ -72,9 +79,38 @@ class _LoginScreenState extends State<LoginScreen> {
                 customField("Enter Employee ID", idController_),
                 FieldTitle("Password"),
                 customField("Enter Password", passwordController_),
-                Container(
-                  child: Center(
-                    child: Text("LOGIN")
+                GestureDetector(
+                  onTap:  () async{
+                    String id = idController_.text.trim();
+                    String password = passwordController_.text.trim();
+                    QuerySnapshot snap_= await FirebaseFirestore.
+                    instance.collection("Employee").where('id',isEqualTo: id).get();
+
+                    print(snap_.docs[0]['id']);
+
+                    },
+
+                  child: Container(
+                    height: 60,
+                    width: screenWidth_,
+                    margin: EdgeInsets.only(
+                      top: screenHeight_ / 40,
+                    ),
+                    decoration: BoxDecoration(color: primary_,
+                    borderRadius: const BorderRadius.all( Radius.circular(30)),
+                  
+                    ),
+                    child: Center(
+                      child: Text("LOGIN",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth_ / 26,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                        ),
+                      ),
+                  
+                    ),
                   ),
                 ),
               ],
