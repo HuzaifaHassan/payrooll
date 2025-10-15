@@ -1,6 +1,8 @@
     import 'package:cloud_firestore/cloud_firestore.dart';
     import 'package:flutter/material.dart';
     import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+    import 'package:payrooll/homescreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
     class LoginScreen extends StatefulWidget {
       const LoginScreen({super.key});
@@ -15,8 +17,8 @@
       TextEditingController passwordController_ = TextEditingController();
       double screenHeight_ = 0;
       double screenWidth_ = 0;
-      Color primary_ = const Color(0xFF1E90FF);
-
+      Color primary_ = const Color( 0xFF1E90FF);
+      late SharedPreferences sharedPreferences_;
       @override
       Widget build(BuildContext context) {
         final bool isKeyboardVisible = KeyboardVisibilityProvider.isKeyboardVisible(context);
@@ -106,7 +108,16 @@
                                 .where('id', isEqualTo: id)
                                 .get();
                             if(password==snap_.docs[0]['password']){
-                              print("continue");
+                              sharedPreferences_ = await SharedPreferences.getInstance();
+                              await sharedPreferences_.setString('id', id);
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => const Homescreen()),
+                              );
+                             // sharedPreferences_.setString("name", snap_.docs[0]['name']);
+
+
                             }
 
                              else{
@@ -259,3 +270,4 @@
       }
 
     }
+
