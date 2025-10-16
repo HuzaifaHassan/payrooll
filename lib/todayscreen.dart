@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:slide_to_act/slide_to_act.dart';
 
 class Todayscreen extends StatefulWidget {
   const Todayscreen({super.key});
@@ -131,7 +132,7 @@ class _TodayscreenState extends State<Todayscreen> {
                               ),
                               Text
                                 (
-                                "15:30",
+                                "--/--",
                                 style: TextStyle(
                                  fontSize:screenWidth_ / 18,
                                   fontWeight: FontWeight.bold,
@@ -172,7 +173,7 @@ class _TodayscreenState extends State<Todayscreen> {
             Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                "20:00:01",
+                "12:00:01 PM",
                 style: TextStyle(
                   fontSize: screenWidth_/20,
                   color: Colors.black54,
@@ -180,7 +181,32 @@ class _TodayscreenState extends State<Todayscreen> {
                 ),
               ),
             ),
+            Container(
+              margin: const EdgeInsets.only(top: 32),
+              child: Builder(
+                builder: (context) {
+                  final GlobalKey<SlideActionState> key = GlobalKey();
+               return  SlideAction(
 
+                          text: "Slide To Check Out",
+                           textStyle: TextStyle(
+                             fontSize: screenWidth_/20,
+                             color: Colors.white54,
+                            // fontWeight: FontWeight.bold,
+                           ),
+                          outerColor: primary_,
+                          innerColor: Colors.white,
+                          key: key,
+                          onSubmit: () {
+                            key.currentState!.reset();
+
+
+                          },
+                  );
+                },
+
+              ),
+            ),
           ],
         ),
       )
