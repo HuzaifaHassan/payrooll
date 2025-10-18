@@ -5,6 +5,8 @@ import 'package:payrooll/homescreen.dart';
 import 'package:payrooll/loginscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'model/user.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -55,6 +57,7 @@ class _AuthCheckState extends State<AuthCheck> {
         try{
           if(sp_.getString('id')!=null){
             setState(() {
+              User.username_ = sp_.getString('id')!;
               userAvailable=true;
             });
           }
@@ -65,7 +68,8 @@ class _AuthCheckState extends State<AuthCheck> {
         }
   }
   Widget build(BuildContext context) {
-    return userAvailable ? const Homescreen() :const LoginScreen();
+   // return userAvailable ? const Homescreen() :const LoginScreen();
+     return const LoginScreen();
   }
 }
 
